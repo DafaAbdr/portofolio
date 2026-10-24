@@ -1,0 +1,1594 @@
+/* =========================================================
+   THEME VARIABLES
+========================================================= */
+:root[data-theme="dark"] {
+    --bg-page:        #0d1117;
+    --bg-card:        #151c27;
+    --bg-card-alt:    #1b2431;
+    --bg-nav:         #10161f;
+    --text-primary:   #e9edf3;
+    --text-secondary: #9aa7ba;
+    --border-color:   #26303f;
+    --accent:         #3b82f6;
+    --accent-soft:    rgba(59, 130, 246, 0.15);
+    --shadow:         0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+:root[data-theme="light"] {
+    --bg-page:        #eef1f6;
+    --bg-card:        #ffffff;
+    --bg-card-alt:    #f4f6fa;
+    --bg-nav:         #ffffff;
+    --text-primary:   #1c2431;
+    --text-secondary: #5b6472;
+    --border-color:   #e1e5ec;
+    --accent:         #2563eb;
+    --accent-soft:    rgba(37, 99, 235, 0.10);
+    --shadow:         0 8px 24px rgba(20, 30, 60, 0.08);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    background: var(--bg-page);
+    color: var(--text-primary);
+    font-family: "Segoe UI", Roboto, Arial, sans-serif;
+    overflow: hidden; /* whole page never scrolls */
+    transition: background 0.25s ease, color 0.25s ease;
+}
+
+/* =========================================================
+   APP LAYOUT
+========================================================= */
+.app-wrapper {
+    height: 100vh;
+    width: 100%;
+}
+
+/* ---------- LEFT: PROFILE CARD (fixed, never scrolls) ---------- */
+.profile-card {
+    flex: 0 0 400px;
+    max-width: 400px;
+    height: 100vh;
+    background: var(--bg-card);
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    align-items: stretch;
+    padding: clamp(1rem, 3vh, 2rem) 1.5rem;
+    overflow: hidden;   /* profile is fixed reference info - it must never scroll */
+}
+
+/* Hide the safety scrollbar visually - it should never be needed at normal sizes */
+.profile-card-inner {
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: clamp(0.75rem, 2vh, 1.5rem);
+}
+
+.profile-photo {
+    margin-bottom: 1rem; /* dulu utilitas mb-3 */
+    width: clamp(90px, 15vh, 150px);
+    height: clamp(90px, 15vh, 150px);
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid var(--border-color);
+    background: var(--bg-card-alt);
+}
+
+.profile-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 15%;
+}
+
+.profile-name {
+    margin-bottom: 0.5rem; /* dulu utilitas mb-2 */
+    font-size: clamp(1.05rem, 2.2vh, 1.3rem);
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.badge-job {
+    margin-bottom: 1rem; /* dulu utilitas mb-3 */
+    background: var(--accent-soft);
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 999px;
+    padding: clamp(0.2rem, 0.6vh, 0.3rem) 1rem;
+    font-size: clamp(0.78rem, 1.6vh, 0.85rem);
+    font-weight: 600;
+}
+
+.profile-tagline {
+    color: var(--text-secondary);
+    font-size: clamp(0.75rem, 1.5vh, 0.85rem);
+    line-height: 1.5;
+    margin: clamp(0.5rem, 1.2vh, 0.75rem) auto 0;
+    max-width: 260px;
+}
+
+.status-value {
+    color: var(--accent);
+    font-weight: 600;
+}
+
+.profile-skills-label {
+    display: block;
+    text-align: left;
+    font-size: clamp(0.72rem, 1.4vh, 0.78rem);
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: clamp(0.4rem, 0.9vh, 0.6rem);
+}
+
+.skill-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.skill-chip {
+    font-size: clamp(0.7rem, 1.3vh, 0.76rem);
+    font-weight: 600;
+    color: var(--text-primary);
+    background: var(--bg-card-alt);
+    border: 1px solid var(--border-color);
+    border-radius: 999px;
+    padding: clamp(0.28rem, 0.7vh, 0.35rem) 0.8rem;
+}
+
+.profile-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(0.5rem, 1vh, 0.75rem);
+    padding-top: clamp(0.6rem, 1.3vh, 1rem);
+    border-top: 1px solid var(--border-color);
+}
+
+.profile-footer-text {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.profile-info li {
+    margin-bottom: clamp(0.6rem, 1.5vh, 1.1rem);
+    gap: 0.75rem;
+}
+
+.profile-info li:last-child {
+    margin-bottom: 0;
+}
+
+.profile-info strong {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--text-primary);
+}
+
+.info-value {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    word-break: break-word;
+}
+
+.info-link {
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.info-link:hover {
+    color: var(--accent);
+    text-decoration: underline;
+}
+
+.info-icon {
+    flex: 0 0 auto;
+    width: clamp(28px, 4.2vh, 34px);
+    height: clamp(28px, 4.2vh, 34px);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+    background: var(--bg-card-alt);
+}
+
+.social-btn {
+    width: clamp(32px, 4.6vh, 38px);
+    height: clamp(32px, 4.6vh, 38px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-card-alt);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.social-btn:hover {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+}
+
+/* ---------- RIGHT: CONTENT PANEL ---------- */
+.content-panel {
+    flex: 1 1 auto;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.content-nav {
+    flex: 0 0 auto;
+    background: var(--bg-nav);
+    border-bottom: 1px solid var(--border-color);
+    padding: 0.9rem 1.75rem;
+}
+
+.nav-tabs-custom {
+    gap: 0.4rem;
+    flex-wrap: wrap;
+}
+
+.nav-tabs-custom .nav-link {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    font-weight: 600;
+    font-size: 0.92rem;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.nav-tabs-custom .nav-link:hover {
+    color: var(--text-primary);
+    background: var(--bg-card-alt);
+}
+
+.nav-tabs-custom .nav-link.active {
+    color: #fff;
+    background: var(--accent);
+}
+
+.theme-toggle-btn {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1px solid var(--border-color);
+    background: var(--bg-card-alt);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    cursor: pointer;
+    flex: 0 0 auto;
+    transition: all 0.2s ease;
+}
+
+.theme-toggle-btn:hover {
+    background: var(--accent);
+    color: #fff;
+}
+
+/* ---------- SCROLLABLE CONTENT AREA ---------- */
+.content-scroll {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    padding: 2rem 1.75rem 3rem;
+}
+
+.content-scroll::-webkit-scrollbar {
+    width: 8px;
+}
+
+.content-scroll::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 8px;
+}
+
+.tab-section {
+    display: none;
+}
+
+.tab-section.active {
+    display: block;
+    animation: fadeIn 0.25s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.section-title {
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.section-text {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* ---------- GENERIC CARDS / BOXES ---------- */
+.info-box, .cert-card, .blog-card, .timeline-content {
+    background: var(--bg-card-alt);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.25rem;
+    box-shadow: var(--shadow);
+}
+
+.info-box i {
+    font-size: 1.4rem;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.info-box h5 {
+    font-size: 1rem;
+    color: var(--text-primary);
+    margin-bottom: 0.35rem;
+}
+
+.info-box p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+/* ---------- TIMELINE (Pendidikan / Pengalaman) ---------- */
+.timeline {
+    position: relative;
+    padding-left: 1.5rem;
+    border-left: 2px solid var(--border-color);
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 1.75rem;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: -1.62rem;
+    top: 0.35rem;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 4px var(--accent-soft);
+}
+
+.timeline-year {
+    display: inline-block;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 0.35rem;
+}
+
+.timeline-content h5 {
+    font-size: 1rem;
+    color: var(--text-primary);
+    margin-bottom: 0.15rem;
+}
+
+.timeline-list {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin: 0.6rem 0 0;
+    padding-left: 1.1rem;
+}
+
+.timeline-list li {
+    margin-bottom: 0.4rem;
+}
+
+.timeline-list li:last-child {
+    margin-bottom: 0;
+}
+
+/* ---------- PENDIDIKAN: structured meta (Tahun / IPK / Bidang Kompetensi) ---------- */
+.edu-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin: 0.6rem 0 0.9rem;
+}
+
+.edu-meta-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 0.5rem 0.9rem;
+    min-width: 130px;
+}
+
+.edu-meta-label {
+    display: block;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 0.2rem;
+}
+
+.edu-meta-value {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1.3;
+}
+
+/* ---------- PENGALAMAN: icon markers, duration badge & check-style points ---------- */
+.timeline-icon {
+    position: absolute;
+    left: -1.75rem;
+    top: 0.05rem;
+    width: 27px;
+    height: 27px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.78rem;
+    box-shadow: 0 0 0 4px var(--accent-soft);
+}
+
+.timeline-head {
+    margin-bottom: 0.2rem;
+}
+
+.timeline-year-badge {
+    display: inline-block;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.2rem 0.7rem;
+    border-radius: 999px;
+}
+
+.exp-points {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    margin-top: 0.7rem;
+}
+
+.exp-point {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.55rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.55;
+}
+
+.exp-point i {
+    color: var(--accent);
+    margin-top: 0.2rem;
+    flex: 0 0 auto;
+    font-size: 0.85rem;
+}
+
+/* ---------- CERTIFICATES ---------- */
+.cert-icon {
+    font-size: 1.8rem;
+    color: var(--accent);
+}
+
+.cert-card-with-image { align-items: center; }
+
+.cert-thumb-btn {
+    position: relative;
+    flex: 0 0 auto;
+    width: 72px;
+    height: 250px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    padding: 0;
+    background: var(--bg-card);
+    cursor: zoom-in;
+}
+.cert-thumb { width: 100%; height: 100%; object-fit: cover; display: block; }
+.cert-thumb-zoom {
+    position: absolute; top: 0; right: 0; bottom: 0; left: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(0, 0, 0, 0.35); color: #fff;
+    opacity: 0; transition: opacity 0.2s ease; font-size: 1.1rem;
+}
+.cert-thumb-btn:hover .cert-thumb-zoom { opacity: 1; }
+
+.cert-overlay {
+    position: fixed; top: 0; right: 0; bottom: 0; left: 0;
+    background: rgba(6, 9, 14, 0.88);
+    display: flex; align-items: center; justify-content: center;
+    padding: 2rem; z-index: 1080; cursor: zoom-out;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.22s ease;
+}
+.cert-overlay.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+.cert-overlay-inner { max-width: 90vw; max-height: 90vh; }
+.cert-overlay-inner img {
+    max-width: 90vw; max-height: 90vh;
+    border-radius: 10px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    transform: scale(0.94);
+    transition: transform 0.22s ease;
+}
+.cert-overlay.active .cert-overlay-inner img {
+    transform: scale(1);
+}
+
+/* ---------- CERTIFICATE GRID TILES (image + title, 2 per row) ---------- */
+.cert-tile {
+    background: var(--bg-card-alt);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    height: 100%;
+}
+
+.cert-tile-btn {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: zoom-in;
+}
+
+/* Fixed 4:3 box via the padding-top trick - works reliably across every
+   browser/engine, unlike the CSS `aspect-ratio` property which some
+   browsers/renderers don't size consistently for replaced elements. */
+.cert-tile-media {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 320px; /* fixed pixel height on purpose - no percentage/aspect-ratio
+                       tricks, so it always renders the same everywhere */
+    background: #ffffff;
+}
+
+.cert-tile-img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    box-sizing: border-box;
+    padding: 0.6rem;
+}
+
+.cert-tile-caption {
+    padding: 1rem 1.25rem;
+}
+
+.cert-tile-caption h6 {
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    margin-bottom: 0.25rem;
+    line-height: 1.4;
+}
+
+.cert-tile-caption span {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+}
+
+/* ---------- BLOG ---------- */
+.blog-card {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.blog-thumb {
+    flex: 0 0 60px;
+    height: 60px;
+    border-radius: 10px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+.blog-body h6 {
+    color: var(--text-primary);
+    margin: 0.2rem 0;
+}
+
+/* ---------- TENTANG SAYA (hero style) ---------- */
+.about-hero {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+}
+
+.about-hero-text {
+    flex: 1 1 380px;
+    min-width: 280px;
+}
+
+.about-greeting {
+    display: block;
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 1.05rem;
+    margin-bottom: 0.4rem;
+}
+
+.about-title {
+    font-size: 2.1rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: 1.25rem;
+}
+
+.about-hero-text .section-text {
+    margin-bottom: 1rem;
+}
+
+.about-hero-text strong {
+    color: var(--text-primary);
+}
+
+.about-hero-photo {
+    position: relative;
+    flex: 0 0 300px;
+    width: 300px;
+    height: 380px;
+    margin: 1.5rem auto;
+}
+
+.about-photo-frame {
+    width: 100%;
+    height: 100%;
+    border-radius: 16px;
+    overflow: hidden;
+    background: var(--bg-card-alt);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow);
+    position: relative;
+    z-index: 2;
+}
+
+.about-photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.deco {
+    position: absolute;
+    color: var(--accent);
+    z-index: 1;
+    opacity: 0.85;
+}
+
+.deco-dash {
+    top: -18px;
+    left: -22px;
+    width: 60px;
+    height: 40px;
+}
+
+.deco-circle {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border: 4px solid var(--accent);
+    bottom: -25px;
+    right: -25px;
+}
+
+.deco-triangle {
+    width: 70px;
+    height: 62px;
+    bottom: 30px;
+    left: -35px;
+}
+
+/* ---------- TENTANG SAYA - highlight cards & quote ---------- */
+.about-highlights {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-top: 2.5rem;
+}
+
+.highlight-card {
+    background: var(--bg-card-alt);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.25rem;
+    box-shadow: var(--shadow);
+}
+
+.highlight-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+}
+
+.highlight-card h6 {
+    color: var(--text-primary);
+    font-size: 0.92rem;
+    margin-bottom: 0.4rem;
+}
+
+.highlight-card p {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.about-quote {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding: 1.25rem 1.5rem;
+    background: var(--accent-soft);
+    border-left: 3px solid var(--accent);
+    border-radius: 10px;
+}
+
+.about-quote i {
+    font-size: 1.8rem;
+    color: var(--accent);
+    flex: 0 0 auto;
+}
+
+.about-quote p {
+    margin: 0;
+    color: var(--text-primary);
+    font-style: italic;
+    font-size: 0.95rem;
+}
+
+@media (max-width: 760px) {
+    .about-highlights {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .cert-tile-media {
+        height: 220px;
+    }
+}
+
+/* ---------- PROYEK ---------- */
+.project-card {
+    background: var(--bg-card-alt);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+    height: 100%;
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent);
+    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.4);
+}
+
+.project-card-feature {
+    background: linear-gradient(160deg, var(--bg-card-alt) 60%, var(--accent-soft) 150%);
+}
+
+.project-card-clickable {
+    position: relative;
+    cursor: pointer;
+}
+
+.project-card-clickable:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+
+
+.project-icon-live {
+    position: relative;
+}
+
+.live-dot {
+    position: absolute;
+    top: -3px;
+    right: -3px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #ef4444;
+    box-shadow: 0 0 0 2px var(--bg-card-alt);
+    animation: liveDotPulse 1.6s ease-in-out infinite;
+}
+
+@keyframes liveDotPulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50%      { transform: scale(1.3); opacity: 0.6; }
+}
+
+.project-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    margin-bottom: 0.9rem;
+}
+
+.project-card h5 {
+    color: var(--text-primary);
+    margin-bottom: 0.2rem;
+}
+
+.project-tag {
+    display: inline-block;
+    font-size: 0.78rem;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+}
+
+.project-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.9rem;
+}
+
+.project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent);
+    background: none;
+    border: none;
+    padding: 0;
+    text-decoration: none;
+    cursor: pointer;
+    transition: gap 0.2s ease, color 0.2s ease;
+}
+
+.project-link:hover {
+    gap: 0.6rem;
+    color: var(--accent);
+    text-decoration: underline;
+}
+
+/* ---------- PROJECT DETAIL PAGE (full section, not a popup) ---------- */
+.back-to-projects {
+    -webkit-appearance: none;
+    appearance: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: none;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    margin: 0 0 1.5rem;
+    color: var(--text-secondary);
+    font-family: inherit;
+    font-size: 0.88rem;
+    font-weight: 600;
+    line-height: normal;
+    cursor: pointer;
+    transition: color 0.2s ease, gap 0.2s ease;
+}
+
+.back-to-projects:hover {
+    color: var(--accent);
+    gap: 0.7rem;
+}
+
+.project-detail-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.project-detail-header .project-icon {
+    flex: 0 0 auto;
+    margin-bottom: 0;
+}
+
+.project-detail-title {
+    color: var(--text-primary);
+    font-weight: 700;
+    font-size: 1.4rem;
+    margin: 0.3rem 0 0;
+}
+
+.detail-youtube-link {
+    display: inline-flex;
+    margin: 0.5rem 0 1.5rem;
+}
+
+/* ---------- VIDEO DEMO: plays inline on the page via a YouTube embed ----------
+   No video file is ever stored on this server - only a thumbnail image (hosted
+   by YouTube) is shown until clicked, then it's swapped for a YouTube iframe
+   (facade pattern: cheap to load, and the video only starts streaming from
+   YouTube once the person actually wants to watch it). */
+.video-embed-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 640px;
+    aspect-ratio: 16 / 9;
+    height: auto;
+    padding-top: 0;
+    background: #000;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow);
+    margin: 0.75rem 0 1rem;
+}
+
+.video-embed-wrapper iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.video-preview-trigger {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.video-preview-thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.video-preview-play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 62px;
+    height: 62px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    padding-left: 4px; /* optically center the play glyph */
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.video-preview-trigger:hover .video-preview-play {
+    background: var(--accent);
+    transform: translate(-50%, -50%) scale(1.08);
+}
+
+.detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin: 0.5rem 0 1rem;
+}
+
+.detail-grid .detail-heading {
+    margin-top: 0;
+}
+
+@media (max-width: 560px) {
+    .detail-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+}
+
+.detail-heading {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    margin: 1.25rem 0 0.6rem;
+}
+
+.detail-heading i {
+    color: var(--accent);
+}
+
+.detail-list {
+    margin: 0;
+    padding-left: 1.2rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.detail-list li {
+    margin-bottom: 0.4rem;
+}
+
+.detail-list li:last-child {
+    margin-bottom: 0;
+}
+
+/* ---------- PROJECT DETAIL: photo gallery (grid, full page has the room) ----------
+   Fixed pixel width AND height on purpose (no aspect-ratio/percentage tricks -
+   those proved unreliable earlier) so every tile is a clean, reliable 16:9
+   landscape box of the exact same size, regardless of browser quirks. */
+.project-gallery-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-top: 0.75rem;
+}
+
+.gallery-grid-thumb {
+    position: relative;
+    flex: 0 0 auto;
+    width: 240px;
+    height: 135px; /* 240x135 = exactly 16:9 */
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    padding: 0;
+    background: var(--bg-card-alt);
+    cursor: zoom-in;
+}
+
+.gallery-grid-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+@media (max-width: 560px) {
+    .gallery-grid-thumb {
+        width: 160px;
+        height: 90px; /* still exactly 16:9, just smaller for phones */
+    }
+}
+
+.stack-badge {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 999px;
+    padding: 0.25rem 0.75rem;
+}
+
+/* ---------- SIDEBAR: tetap muat di layar pendek (tanpa terpotong / scroll) ---------- *//* Tinggi sidebar harus muat di layar mana pun tanpa terpotong, jadi jarak & elemen
+   dikurangi bertahap sesuai tinggi layar (diukur di browser sungguhan, 400-900px).
+   Perhatian: tinggi layar di sini adalah tinggi dalam piksel CSS - layar laptop dgn
+   skala Windows 125% hanya ~700px walau resolusinya 1080p. */
+
+/* Tahap 1 (<= 800px): jarak dirapatkan, semua isi tetap tampil */
+@media (max-height: 800px) {
+    .profile-card { padding-top: 1rem; padding-bottom: 1rem; }
+    .profile-card-inner { gap: 0.6rem; }
+    .profile-photo { width: 84px; height: 84px; margin-bottom: 0.5rem; }
+    .profile-name { margin-bottom: 0.25rem; }
+    .badge-job { margin-bottom: 0.25rem; }
+    .profile-tagline { margin-top: 0.4rem; font-size: 0.8rem; line-height: 1.4; }
+    .profile-info { margin-bottom: 0; }
+    .profile-info li { margin-bottom: 0.5rem; }
+    .profile-bottom { padding-top: 0.6rem; gap: 0.4rem; }
+}
+
+/* Tahap 2 (<= 660px): tagline disembunyikan */
+@media (max-height: 660px) {
+    .profile-tagline { display: none; }
+}
+
+/* Tahap 3 (<= 620px): label "Keahlian" & copyright disembunyikan, foto lebih kecil */
+@media (max-height: 620px) {
+    .profile-photo { width: 64px; height: 64px; }
+    .profile-skills-label { display: none; }
+    .profile-footer-text { display: none; }
+}
+
+/* Tahap 4 (<= 540px): layar sangat pendek - semua dirapatkan semaksimal mungkin */
+@media (max-height: 540px) {
+    .profile-card { padding-top: 0.6rem; padding-bottom: 0.6rem; }
+    .profile-card-inner { gap: 0.4rem; }
+    .profile-photo { width: 48px; height: 48px; margin-bottom: 0.3rem; }
+    .profile-info li { margin-bottom: 0.3rem; }
+    .skill-chips { gap: 0.3rem; }
+    .skill-chip { padding-top: 0.2rem; padding-bottom: 0.2rem; }
+    .profile-bottom { padding-top: 0.4rem; }
+}
+
+/* Tahap 5 (<= 470px): layar ekstrem - blok keahlian disembunyikan (isinya juga ada di halaman Tentang Saya)
+   supaya nama, jabatan, dan kontak tetap utuh tanpa terpotong atau perlu di-scroll */
+@media (max-height: 470px) {
+    .profile-skills { display: none; }
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 960px) {
+    html, body {
+        overflow: auto;
+        height: auto;
+    }
+
+    .app-wrapper {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .profile-card {
+        flex: none;
+        max-width: 100%;
+        height: auto;
+        overflow: visible;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .content-panel {
+        height: auto;
+    }
+
+    .content-scroll {
+        overflow-y: visible;
+    }
+}
+
+/* ---------- SUBTLE CLICK / TAP FEEDBACK ---------- */
+/* Every clickable control gets a quick, understated press animation. */
+.nav-tabs-custom .nav-link,
+.theme-toggle-btn,
+.social-btn,
+.cert-thumb-btn,
+.info-link,
+.skill-chip {
+    transition: transform 0.15s ease, background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.nav-tabs-custom .nav-link:active,
+.theme-toggle-btn:active,
+.social-btn:active,
+.cert-thumb-btn:active {
+    transform: scale(0.94);
+}
+
+.skill-chip {
+    cursor: default;
+}
+
+@keyframes iconPop {
+    0%   { transform: scale(1); }
+    45%  { transform: scale(1.22); }
+    100% { transform: scale(1); }
+}
+
+.theme-toggle-btn i.icon-pop {
+    animation: iconPop 0.35s ease;
+}
+
+/* ---------- BLOG ARTICLE: before/after image comparison ---------- */
+.before-after-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin: 1rem 0 1.5rem;
+}
+
+.before-after-item {
+    margin: 0;
+}
+
+/* Overrides the generic .cert-thumb-btn fixed size (meant for small
+   thumbnails) so these illustrations display at a proper readable size. */
+button.before-after-img.cert-thumb-btn {
+    width: 100%;
+    height: auto;
+    display: block;
+    padding: 0;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow);
+    background: none;
+    cursor: zoom-in;
+}
+
+.before-after-img img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 11px; /* 1px less than the button's radius so it doesn't peek past the border */
+}
+
+.before-after-item figcaption {
+    margin-top: 0.6rem;
+    text-align: center;
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+}
+
+@media (max-width: 560px) {
+    .before-after-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ---------- BLOG ARTICLE: downloadable files ---------- */
+.download-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin: 0.75rem 0 1.5rem;
+}
+
+.download-item {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 0.9rem 1.1rem;
+    background: var(--bg-card-alt);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    text-decoration: none;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.download-item:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+}
+
+.download-item > i:first-child {
+    font-size: 1.4rem;
+    color: var(--accent);
+    flex: 0 0 auto;
+}
+
+.download-item span {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.download-item strong {
+    color: var(--text-primary);
+    font-size: 0.92rem;
+}
+
+.download-item small {
+    color: var(--text-secondary);
+    font-size: 0.78rem;
+    margin-top: 0.1rem;
+}
+
+.download-item-icon {
+    flex: 0 0 auto;
+    color: var(--text-secondary);
+    font-size: 1rem;
+}
+
+/* ---------- Inline <code> styling (used in the blog article for registry paths) ---------- */
+code {
+    background: var(--bg-card-alt);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 0.1rem 0.4rem;
+    font-size: 0.88em;
+    color: var(--accent);
+    font-family: "Consolas", "SFMono-Regular", Menlo, monospace;
+}
+
+/* ---------- Before/after comparison table (used in project detail pages) ---------- */
+.compare-table-wrap {
+    overflow-x: auto;
+    margin: 0.75rem 0 0.5rem;
+}
+
+.compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+}
+
+.compare-table th,
+.compare-table td {
+    padding: 0.65rem 0.9rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+    white-space: nowrap;
+}
+
+.compare-table th {
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-weight: 700;
+    background: var(--bg-card-alt);
+}
+
+.compare-table td {
+    color: var(--text-primary);
+}
+
+.compare-table td.compare-better {
+    color: #22c55e;
+    font-weight: 700;
+}
+
+.compare-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* ---------- Task blocks: pairs each "Yang Saya Kerjakan" item with its own photo(s) ---------- */
+.task-block {
+    margin-bottom: 1.75rem;
+    padding-bottom: 1.75rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.task-block:last-child {
+    margin-bottom: 0.5rem;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.task-block-header {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    margin-bottom: 0.5rem;
+}
+
+.task-block-num {
+    flex: 0 0 auto;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.task-block-header h6 {
+    margin: 0;
+    color: var(--text-primary);
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.task-block-photos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 0.85rem;
+}
+
+.task-photo {
+    margin: 0;
+}
+
+.task-photo figcaption {
+    text-align: center;
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    margin-top: 0.45rem;
+}
+
+.task-block-pending {
+    opacity: 0.7;
+}
+
+.task-block-pending .task-block-num {
+    background: var(--text-secondary);
+}
+
+/* ---------- Kartu proyek versi ringkas (kartu grup "Website dan SPK") ---------- */
+.project-card-compact {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    height: auto;
+    padding: 0.85rem 1.1rem;
+}
+
+.project-card-compact .project-icon {
+    flex: 0 0 auto;
+    width: 40px;
+    height: 40px;
+    margin-bottom: 0;
+    font-size: 1.15rem;
+}
+
+.project-card-compact .compact-text {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.project-card-compact h5 {
+    margin: 0 0 0.1rem;
+    font-size: 0.98rem;
+}
+
+.project-card-compact .project-tag {
+    margin: 0;
+}
+
+.compact-chevron {
+    flex: 0 0 auto;
+    color: var(--text-secondary);
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.project-card-compact:hover .compact-chevron {
+    color: var(--accent);
+    transform: translateX(3px);
+}
+
+/* ---------- Kotak pencarian blog ---------- */
+.blog-search {
+    position: relative;
+    max-width: 420px;
+    margin-bottom: 0.6rem;
+}
+
+.blog-search-icon {
+    position: absolute;
+    top: 50%;
+    left: 0.95rem;
+    transform: translateY(-50%);
+    color: var(--text-secondary);
+    pointer-events: none;
+}
+
+.blog-search-input {
+    width: 100%;
+    padding: 0.6rem 2.4rem 0.6rem 2.5rem;
+    background: var(--bg-card-alt);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 0.92rem;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.blog-search-input::placeholder {
+    color: var(--text-secondary);
+}
+
+.blog-search-input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.blog-search-clear {
+    position: absolute;
+    top: 50%;
+    right: 0.6rem;
+    transform: translateY(-50%);
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
+.blog-search-clear:hover {
+    color: var(--text-primary);
+    background: var(--accent-soft);
+}
+
+.blog-search-status {
+    min-height: 1.2rem;
+    margin: 0 0 1rem;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.blog-search-empty {
+    padding: 1.5rem 0;
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+}
+
+/* ---------- Blog: blok kode / perintah ---------- */
+pre.code-block {
+    background: var(--bg-card-alt);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 0.85rem 1rem;
+    margin: 0.5rem 0 1rem;
+    overflow-x: auto;
+    font-size: 0.85rem;
+    line-height: 1.55;
+    color: var(--text-primary);
+}
+pre.code-block code {
+    background: none;
+    padding: 0;
+    color: inherit;
+}
